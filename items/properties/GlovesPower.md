@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GlovesPower
-- **Constructor Address**: 0x18040FD30
+- **Constructor Address**: 0x18045AE80
 - **Category**: Special Attack/Area Effect
 - **Rarity**: Unknown
 
@@ -12,10 +12,10 @@
 | knockbackForce | float | 9999.0 | Extreme knockback strength |
 | procChancePerAmount | float | 0.08 | 8% proc chance per stack |
 | procChance | float | Calculated | Hyperbolic scaling result |
-| baseDamageMultiplier | float | 1.0 | Base damage scaling |
+| baseDamageMultiplier | float | 1.25 | Base damage scaling |
 | radiusPerAmount | float | 5.0 | Radius increase per stack |
-| radius | float | Calculated | Dynamic based on amount |
-| cooldown | float | Calculated | Dynamic cooldown |
+| radius | float | 9.0 | Initial base radius |
+| cooldown | float | 1.0 | Initial cooldown (dynamic) |
 | readyAtTime | float | Dynamic | Next proc availability |
 
 ## Stat Modifiers
@@ -36,7 +36,7 @@
 - **Damage**: Uses GetDamage() method for area damage calculation
 
 ### Area of Effect
-- **Base Radius**: 8.0 units
+- **Base Radius**: 9.0 units (initial)
 - **Final Radius**: `(amount * 5.0) + 10.0`
 - **Target Selection**: Gets all enemies within radius using WeaponUtility
 
@@ -49,11 +49,11 @@
 
 ### Cooldown Calculation
 ```
-cooldown = clamp(3.2 - (amount * 0.2), 0.2, 2.0)
+cooldown = clamp(3.2 - (amount * 0.2), 0.2, 1.5)
 ```
 - Decreases from 3.2 seconds at 1 stack
 - Minimum: 0.2 seconds
-- Maximum: 2.0 seconds
+- Maximum: 1.5 seconds
 
 ### Radius Calculation
 ```
@@ -81,9 +81,9 @@ public ItemGlovesPower(ItemInventory inventory) : base(inventory)
 {
     knockbackForce = 9999.0f;
     procChancePerAmount = 0.08f;
-    baseDamageMultiplier = 1.0f;
+    baseDamageMultiplier = 1.25f;
     radiusPerAmount = 5.0f;
-    radius = 8.0f;
+    radius = 9.0f;
     cooldown = 1.0f;
 
     // Initialize reusable damage container
@@ -95,7 +95,7 @@ protected override void OnInitOrAmountChanged()
 {
     // Dynamic cooldown calculation
     float newCooldown = 3.2f - (amount * 0.2f);
-    cooldown = Mathf.Clamp(newCooldown, 0.2f, 2.0f);
+    cooldown = Mathf.Clamp(newCooldown, 0.2f, 1.5f);
 
     // Dynamic radius calculation
     radius = (amount * radiusPerAmount) + 10.0f;

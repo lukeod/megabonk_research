@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: EItem.Scarf
-- **Constructor Address**: 0x180423470
+- **Constructor Address**: 0x180463DC0
 - **Category**: Damage/Power
 - **Rarity**: Common
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| damageAddPerAmount | float | 0.33 | 33% damage increase per stack |
+| damageAddPerAmount | float | 0.5 | 50% damage increase per stack |
 | damageAdd | float | Calculated | Current active damage bonus |
 | lastValueSet | float | Tracked | Last damage value applied to prevent redundant updates |
 
@@ -26,13 +26,13 @@
 
 ## Formulas
 - **Damage Calculation**: `damageAdd = amount * damageAddPerAmount * (grounded ? 0 : 1)`
-- **Final Damage Bonus**: `amount * 0.33` when airborne, `0` when grounded
-- **Per Stack Value**: 33% damage increase per stack (only when airborne)
+- **Final Damage Bonus**: `amount * 0.5` when airborne, `0` when grounded
+- **Per Stack Value**: 50% damage increase per stack (only when airborne)
 
 ## Implementation Details
 - **Update Frequency**: Event-driven (on grounded state change)
 - **Event Subscriptions**: PlayerMovement.A_Grounded (bool grounded)
-- **Stack Behavior**: Linear scaling - each stack adds 33% damage when airborne
+- **Stack Behavior**: Linear scaling - each stack adds 50% damage when airborne
 - **Stat Management**: Uses EStat 12 (Power/Damage) with conditional application
 
 ## C# Pseudocode
@@ -40,7 +40,7 @@
 // Constructor logic
 public ItemScarf(ItemInventory itemInventoryRef) : base(itemInventoryRef)
 {
-    damageAddPerAmount = 0.33f;
+    damageAddPerAmount = 0.5f;
 }
 
 // Initialization - subscribe to grounded events
@@ -101,7 +101,7 @@ private void UpdateDamage(bool grounded)
 ## Usage Strategy
 - **Best When**: Used by highly mobile characters who spend significant time airborne
 - **Synergies**: Combines well with jump height increases, movement abilities, and platforming-heavy gameplay
-- **Stacking Value**: Each additional stack provides consistent 33% damage increase when airborne
+- **Stacking Value**: Each additional stack provides consistent 50% damage increase when airborne
 - **Risk/Reward**: Encourages risky aerial gameplay for damage bonus
 
 ---

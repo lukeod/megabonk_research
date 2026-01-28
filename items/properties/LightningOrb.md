@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.LightningOrb (17)
-- **Constructor Address**: 0x180415900
+- **Constructor Address**: 0x180460460
 - **Category**: Elemental/Status (Lightning)
 - **Rarity**: Unknown
 

@@ -2,16 +2,18 @@
 
 ## Overview
 - **Item ID**: EItem.BrassKnuckles
-- **Constructor Address**: 0x1804031C0
+- **Constructor Address**: 0x18043C8F0
 - **Category**: Melee Damage Enhancement
 - **Rarity**: [Not determinable from available code]
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| damagePerAmount | float | 0.2 | 20% damage increase per stack |
-| radius | float | 7.0 | Maximum distance for melee bonus to apply |
-| additiveValue | float | Calculated | Dynamic value applied to damage modifier |
+| damagePerAmount | float | 0.25 | Flat damage increase per stack |
+| baseRadius | float | 8.0 | Base maximum distance for melee bonus to apply |
+| radiusAddPerAmount | float | 2.0 | Additional radius per stack |
+| radius | float | Calculated | baseRadius + (amount * radiusAddPerAmount) |
+| flatValue | float | Calculated | amount * damagePerAmount |
 
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |
@@ -19,20 +21,21 @@
 | None Direct | N/A | Conditional bonus applied via StatComponents.AddAdditive() | Conditional |
 
 ## Special Mechanics
-- **Proximity-Based Damage**: Only applies damage bonus when enemy is within 7.0 units of the player
+- **Proximity-Based Damage**: Only applies damage bonus when enemy is within calculated radius of the player
 - **Melee Range Check**: Uses enemy movement component to calculate distance to player
-- **Conditional Application**: Damage bonus is applied through the StatComponents.AddAdditive() method only when proximity condition is met
+- **Conditional Application**: Damage bonus is applied by adding flatValue to StatComponents._baseValue_k__BackingField only when proximity condition is met
 - **PreAttack Hook**: Implements the PreAttack virtual method to modify damage before it's applied
 
 ## Formulas
-- **Damage Bonus**: `damagePerAmount * amount = 0.2 * stack_count`
-- **Range Check**: `enemy_distance <= 7.0 units`
-- **Effective Damage Increase**: 20% per stack when within melee range, 0% otherwise
+- **Radius Calculation**: `radius = baseRadius + (amount * radiusAddPerAmount) = 8.0 + (stack_count * 2.0)`
+- **Damage Bonus**: `flatValue = damagePerAmount * amount = 0.25 * stack_count`
+- **Range Check**: `enemy_distance <= radius`
+- **Effective Damage Increase**: +0.25 flat damage per stack when within range, 0 otherwise
 
 ## Implementation Details
 - **Update Frequency**: Evaluated on every attack (PreAttack hook)
 - **Event Subscriptions**: PreAttack event from ItemBase
-- **Stack Behavior**: Linear scaling - each stack adds exactly 20% damage when in range
+- **Stack Behavior**: Linear scaling - each stack adds +0.25 flat damage and +2.0 radius
 - **Distance Calculation**: Uses enemy movement component's position data
 - **Null Safety**: Includes comprehensive null checks for DamageContainer, Enemy, and EnemyMovement components
 
@@ -40,9 +43,11 @@
 ```csharp
 public class ItemBrassKnuckles : ItemBase
 {
-    private float damagePerAmount = 0.2f;    // 20% per stack
-    private float radius = 7.0f;             // Melee range
-    private float additiveValue;             // Calculated damage bonus
+    private float damagePerAmount = 0.25f;      // Flat damage per stack
+    private float baseRadius = 8.0f;            // Base melee range
+    private float radiusAddPerAmount = 2.0f;    // Additional radius per stack
+    private float radius;                        // Calculated total radius
+    private float flatValue;                     // Calculated damage bonus
 
     public override void PreAttack(DamageContainer dc, StatComponents itemAttackModifier)
     {
@@ -56,14 +61,17 @@ public class ItemBrassKnuckles : ItemBase
         // Apply damage bonus only if within melee range
         if (distanceToEnemy <= radius && itemAttackModifier != null)
         {
-            itemAttackModifier.AddAdditive(additiveValue, EStat.DamageMultiplier);
+            itemAttackModifier._baseValue_k__BackingField += flatValue;
+            itemAttackModifier.hasModifications = true;
         }
     }
 
     protected override void OnInitOrAmountChanged()
     {
-        // Calculate additive value based on current stack count
-        additiveValue = damagePerAmount * amount; // 0.2 * stacks
+        // Calculate radius based on current stack count
+        radius = baseRadius + (amount * radiusAddPerAmount); // 8.0 + (stacks * 2.0)
+        // Calculate flat damage bonus
+        flatValue = amount * damagePerAmount; // stacks * 0.25
     }
 }
 ```
@@ -95,4 +103,4 @@ public class ItemBrassKnuckles : ItemBase
 
 ---
 
-*Data extracted from IL2CPP decompiled constructor at 0x1804031C0 and C# interop wrapper analysis*
+*Data extracted from IL2CPP decompiled constructor at 0x18043C8F0 and C# interop wrapper analysis*

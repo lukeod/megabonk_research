@@ -2,20 +2,20 @@
 
 ## Overview
 - **Item ID**: EItem.CursedDoll (43)
-- **Constructor Address**: 0x180406CA0
+- **Constructor Address**: 0x180440A10
 - **Category**: Utility/Special
 - **Rarity**: Unknown
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| maxNumCursedEnemies | int | 1 | Initial maximum cursed enemies |
 | damageMaxHpPercentage | float | 0.3 | 30% of enemy max HP |
-| amountPerDoll | int | 2 | Cursed enemies per stack |
+| enemiesCursedPerDoll | int | 2 | Cursed enemies per stack |
+| maxNumCursesPerCheck | int | 5 | Max enemies to curse per tick |
 | attackCooldown | float | 1.0 | Seconds between attacks |
-| nextAttackTime | float | 0.0 | Time tracking for next attack |
-| reuseDc | DamageContainer | Created | Reusable damage container |
-| damageSource | string | "CursedDoll" | Damage attribution |
+| maxNumCursedEnemies | int | Runtime | Calculated: amount * enemiesCursedPerDoll |
+| reuseDc | DamageContainer | Created | Reusable damage container (initial damage 1.0) |
+| damageSource | string | "CursedDoll" | Damage attribution (EItem enum ID 43) |
 | cursedEnemies | HashSet<Enemy> | New | Set of currently cursed enemies |
 
 ## Stat Modifiers
@@ -26,9 +26,10 @@
 ## Special Mechanics
 
 ### Curse System
-- **Maximum Cursed Enemies**: amount * 2 (starts at 2 with 1 stack)
-- **Target Selection**: Randomly selects alive enemies from EnemyManager
-- **Exclusion Logic**: Only targets enemies not already cursed and not dead
+- **Maximum Cursed Enemies**: amount * enemiesCursedPerDoll (2 per stack)
+- **Max Curses Per Check**: 5 enemies can be cursed per tick cycle
+- **Target Selection**: Iterates through enemies from EnemyManager
+- **Exclusion Logic**: Only targets enemies not already cursed, not dead, and not teleporting
 - **Persistence**: Cursed enemies remain in set until they die or are cleaned up
 
 ### Damage Calculation
@@ -47,8 +48,8 @@
 
 ### Maximum Cursed Enemies
 ```
-maxNumCursedEnemies = amount * amountPerDoll
-// With amountPerDoll = 2:
+maxNumCursedEnemies = amount * enemiesCursedPerDoll
+// With enemiesCursedPerDoll = 2:
 maxNumCursedEnemies = amount * 2
 ```
 
@@ -79,76 +80,81 @@ nextAttackTime = currentTime + attackCooldown
 // Simplified constructor logic
 public ItemCursedDoll(ItemInventory itemInventoryRef) : base(itemInventoryRef)
 {
-    maxNumCursedEnemies = 1;
     damageMaxHpPercentage = 0.3f;
-    amountPerDoll = 2;
+    enemiesCursedPerDoll = 2;
+    maxNumCursesPerCheck = 5;
     attackCooldown = 1.0f;
 
-    // Create reusable damage container
-    reuseDc = new DamageContainer(1.0f, "CursedDoll");
-    damageSource = "CursedDoll";
+    // Create reusable damage container with EItem enum string
+    string itemName = EItem.CursedDoll.ToString(); // enum value 43
+    reuseDc = new DamageContainer(1.0f, itemName);
+    damageSource = itemName;
     cursedEnemies = new HashSet<Enemy>();
 }
 
 // Amount change handler
 protected override void OnInitOrAmountChanged()
 {
-    maxNumCursedEnemies = amount * amountPerDoll;
+    maxNumCursedEnemies = amount * enemiesCursedPerDoll;
 }
 
 // Main update logic
 public override void Tick()
 {
-    if (Time.time < nextAttackTime) return;
+    if (MyTime.time < nextAttackTime) return;
 
-    nextAttackTime = Time.time + attackCooldown;
+    nextAttackTime = MyTime.time + attackCooldown;
 
     // Add new cursed enemies if under limit
     if (cursedEnemies.Count < maxNumCursedEnemies)
     {
+        int cursedThisTick = 0;
         foreach (var enemy in EnemyManager.Instance.enemies.Values)
         {
-            if (enemy != null && !enemy.IsDead && !cursedEnemies.Contains(enemy))
-            {
-                cursedEnemies.Add(enemy);
-                break; // Add one per cycle
-            }
+            if (enemy == null) continue;
+            if (enemy.IsDead() || enemy.IsTeleporting()) continue;
+            if (cursedEnemies.Contains(enemy)) continue;
+
+            cursedEnemies.Add(enemy);
+            cursedThisTick++;
+
+            if (cursedThisTick >= maxNumCursesPerCheck) break;
+            if (cursedEnemies.Count >= maxNumCursedEnemies) break;
         }
     }
 
     // Damage all cursed enemies
     foreach (var cursedEnemy in cursedEnemies)
     {
-        if (cursedEnemy != null && !cursedEnemy.IsDead)
+        if (cursedEnemy == null || cursedEnemy.IsDead()) continue;
+
+        // Spawn visual effect
+        var hitEffect = PoolManager.Instance.cursedHitPool.Get();
+        if (hitEffect != null)
         {
-            // Spawn visual effect
-            var hitEffect = PoolManager.Instance.cursedHitPool.Get();
-            if (hitEffect != null)
-            {
-                hitEffect.transform.position = cursedEnemy.GetHeadPosition();
-            }
-
-            // Calculate damage
-            float damage;
-            if (cursedEnemy.IsBoss)
-            {
-                damage = MyPlayer.Instance.baseDamage * 0.7f;
-            }
-            else
-            {
-                damage = cursedEnemy.maxHp * damageMaxHpPercentage;
-            }
-
-            // Apply damage
-            reuseDc.damage = damage;
-            reuseDc.enemy = cursedEnemy;
-            reuseDc.damageEffect = 7;
-            cursedEnemy.DamageFromPlayerOther(reuseDc);
+            hitEffect.transform.position = cursedEnemy.GetHeadPosition();
         }
+
+        // Calculate damage
+        float damage;
+        if (cursedEnemy.IsBoss())
+        {
+            damage = MyPlayer.Instance.baseDamage * 0.7f;
+        }
+        else
+        {
+            damage = cursedEnemy.maxHp * damageMaxHpPercentage;
+        }
+
+        // Apply damage
+        reuseDc.damage = damage;
+        reuseDc.enemy = cursedEnemy;
+        reuseDc.damageEffect = 7;
+        cursedEnemy.DamageFromPlayerOther(reuseDc);
     }
 
     // Clean up dead enemies
-    cursedEnemies.RemoveWhere(enemy => enemy == null || enemy.IsDead);
+    cursedEnemies.RemoveWhere(enemy => enemy == null || enemy.IsDead());
 }
 ```
 
@@ -165,4 +171,4 @@ public override void Tick()
 - **Ghost**: Another item that spawns effects on enemies
 
 ---
-*Generated from IL2CPP decompiled constructor at 0x180406CA0 and C# interop definitions*
+*Generated from IL2CPP decompiled constructor at 0x180440A10 and C# interop definitions*

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: ItemGiantFork (Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations.ItemGiantFork)
-- **Constructor Address**: 0x18040D1D0
+- **Constructor Address**: 0x180458280
 - **Category**: Damage/Critical Strike Enhancement
 - **Rarity**: Standard Item
 
@@ -11,7 +11,9 @@
 |----------|------|-------|-------|
 | critChancePerAmount | float | 0.15 | 15% critical chance per stack |
 | megaCritChancePerAmount | float | 0.14 | 14% mega critical chance per stack |
-| megaCritDamageMultiplier | float | 4.0 | Mega critical damage multiplier |
+| megaCritDamageMultiplier | float | 4.0 | Base mega critical damage multiplier |
+| extraDamageMultiplierPerAmount | float | 0.15 | Extra damage multiplier per additional stack |
+| finalMegacritMultiplier | float | 4.0 | Initial value, recalculated on amount change |
 | megaCritChance | float | Calculated | amount * megaCritChancePerAmount |
 
 ## Stat Modifiers
@@ -27,7 +29,7 @@ The GiantFork implements a unique "mega critical" system that builds upon the st
 1. **Standard Critical Enhancement**: Each stack provides 15% critical strike chance through the standard EStat system
 2. **Mega Critical Proc**: When a standard critical hit occurs, there's an additional chance to trigger a "mega critical"
 3. **Mega Critical Chance**: Calculated as `amount * 0.14` (14% per stack)
-4. **Mega Critical Damage**: Multiplies the critical damage by 4.0x (400% damage)
+4. **Mega Critical Damage**: Base multiplier of 4.0x, plus 0.15x for each additional stack beyond the first
 
 ### Trigger Conditions
 - Mega critical can only trigger on attacks that are already critical hits
@@ -46,11 +48,21 @@ standardCritChance = amount * 0.15
 megaCritChance = amount * 0.14
 ```
 
-### Mega Critical Damage Calculation
+### Final Mega Crit Multiplier Calculation
+```
+if (amount <= 1) {
+    finalMegacritMultiplier = megaCritDamageMultiplier  // 4.0
+} else {
+    finalMegacritMultiplier = megaCritDamageMultiplier + (amount - 1) * extraDamageMultiplierPerAmount
+    // = 4.0 + (amount - 1) * 0.15
+}
+```
+
+### Mega Critical Damage Application
 ```
 if (isCritical && TryProc(megaCritChance, procCoefficient)) {
-    finalDamage = baseDamage * 4.0
     damageEffect = 2  // Special effect type
+    itemAttackModifier.AddMultiplier(finalMegacritMultiplier)
 }
 ```
 
@@ -69,6 +81,8 @@ public ItemGiantFork(ItemInventory itemInventoryRef) : base(itemInventoryRef)
     critChancePerAmount = 0.15f;
     megaCritChancePerAmount = 0.14f;
     megaCritDamageMultiplier = 4.0f;
+    extraDamageMultiplierPerAmount = 0.15f;
+    finalMegacritMultiplier = 4.0f;
 }
 
 // Initialization and stack update logic
@@ -85,16 +99,23 @@ protected override void OnInitOrAmountChanged()
         value = amount * critChancePerAmount
     };
     SetStat(critModifier);
+
+    // Calculate final mega crit multiplier
+    finalMegacritMultiplier = megaCritDamageMultiplier;
+    if (amount > 1)
+    {
+        finalMegacritMultiplier = megaCritDamageMultiplier + (amount - 1) * extraDamageMultiplierPerAmount;
+    }
 }
 
 // Pre-attack processing
 public override void PreAttack(DamageContainer dc, StatComponents itemAttackModifier)
 {
-    // Only process if the attack is already a critical hit
-    if (dc.crit && TryProc(megaCritChance, dc.procCoefficient))
+    // Only process if the attack is already a critical hit and has enemy target
+    if (dc.crit && dc.enemy != null && TryProc(megaCritChance, dc.procCoefficient))
     {
         dc.damageEffect = 2; // Special mega crit effect
-        dc.damage *= megaCritDamageMultiplier; // 4.0x damage
+        itemAttackModifier.AddMultiplier(finalMegacritMultiplier);
     }
 }
 ```

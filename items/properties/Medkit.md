@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Medkit
-- **Constructor Address**: 0x180415C40
+- **Constructor Address**: 0x180460840
 - **Category**: Health/Healing
 - **Rarity**: N/A (determined from game data)
 

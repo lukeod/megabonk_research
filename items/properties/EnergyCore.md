@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.EnergyCore (Value: 44)
-- **Constructor Address**: 0x180409D50
+- **Constructor Address**: 0x180456540
 - **Category**: Active/Projectile
 - **Rarity**: Common/Uncommon (determinable from game context)
 
@@ -11,6 +11,7 @@
 |----------|------|-------|-------|
 | orbsPerAmount | int | 2 | Orbs added per stack |
 | numOrbs | int | 4 | Base number of orbs |
+| range | float | 70.0 | Orb targeting range |
 | cooldown | float | 4.0 | Seconds between volleys |
 | cooldownPerOrb | float | 0.2 | Base time between individual orbs |
 | nextSpawnTime | float | Runtime | Next volley spawn time |
@@ -58,6 +59,7 @@ cooldownPerOrb = totalOrbTime / numOrbs
 // Constructor logic
 orbsPerAmount = 2;
 numOrbs = 4;
+range = 70.0f;
 cooldown = 4.0f;
 cooldownPerOrb = 0.2f;
 damageSource = "EnergyCore";
@@ -110,4 +112,4 @@ if (orbsLeftToShoot > 0 && MyTime.time >= nextOrbTime) {
 - No built-in damage modifiers in the item itself
 
 ---
-*Data extracted from IL2CPP decompiled constructor at 0x180409D50 and C# class definition*
+*Data extracted from IL2CPP decompiled constructor at 0x180456540 and C# class definition*

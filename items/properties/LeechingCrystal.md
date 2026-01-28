@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.LeechingCrystal
-- **Constructor Address**: 0x1804152A0
+- **Constructor Address**: 0x18045FD50
 - **Category**: Health Management / Tradeoff Item
 - **Rarity**: Unknown (not determinable from constructor)
 
@@ -79,4 +79,4 @@ public class ItemLeechingCrystal : ItemBase
 
 ---
 
-*Generated from IL2CPP constructor analysis at address 0x1804152A0*
+*Generated from IL2CPP constructor analysis at address 0x18045FD50*

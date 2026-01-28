@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.IceCube (ID: 18)
-- **Constructor Address**: 0x180412610
+- **Constructor Address**: 0x18045DE40
 - **Category**: Elemental/Status
 - **Rarity**: Unknown
 
@@ -148,4 +148,4 @@ public override void ProcOnHitEffects(DamageContainer dc)
 
 ---
 
-*Data extracted from constructor at 0x180412610 and decompiled C# implementation*
+*Data extracted from constructor at 0x18045DE40 and decompiled C# implementation*

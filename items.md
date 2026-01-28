@@ -2,7 +2,7 @@
 *Extracted from decompiled IL2CPP constructors via IDA Pro MCP*
 
 ## Item Overview
-Total Items Documented: 68
+Total Items Documented: 73
 
 Individual item documentation files are located in `items/properties/[ItemName].md`
 
@@ -25,7 +25,9 @@ Individual item documentation files are located in `items/properties/[ItemName].
 | 26 | Jump Height |
 | 30 | Luck |
 | 32 | Time-based Damage |
+| 34 | Chest Price Increase |
 | 38 | Difficulty |
+| 46 | Extra Jumps |
 | 47 | Overheal |
 
 ### Debuff Types
@@ -46,6 +48,7 @@ Individual item documentation files are located in `items/properties/[ItemName].
 - [Beer](items/properties/Beer.md)
 - [BloodyCleaver](items/properties/BloodyCleaver.md)
 - [BobDead](items/properties/BobDead.md)
+- [BobLantern](items/properties/BobLantern.md)
 - [Bonker](items/properties/Bonker.md)
 - [Borgor](items/properties/Borgor.md)
 - [BrassKnuckles](items/properties/BrassKnuckles.md)
@@ -84,6 +87,7 @@ Individual item documentation files are located in `items/properties/[ItemName].
 - [IdleJuice](items/properties/IdleJuice.md)
 - [JoesDagger](items/properties/JoesDagger.md)
 - [Kevin](items/properties/Kevin.md)
+- [Key](items/properties/Key.md)
 - [LeechingCrystal](items/properties/LeechingCrystal.md)
 - [LightningOrb](items/properties/LightningOrb.md)
 - [Medkit](items/properties/Medkit.md)
@@ -91,11 +95,13 @@ Individual item documentation files are located in `items/properties/[ItemName].
 - [MoldyCheese](items/properties/MoldyCheese.md)
 - [Oats](items/properties/Oats.md)
 - [PhantomShroud](items/properties/PhantomShroud.md)
+- [Pumpkin](items/properties/Pumpkin.md)
 - [QuinsMask](items/properties/QuinsMask.md)
 - [Rollerblades](items/properties/Rollerblades.md)
 - [Scarf](items/properties/Scarf.md)
 - [Skuleg](items/properties/Skuleg.md)
 - [SluttyCannon](items/properties/SluttyCannon.md)
+- [Snek](items/properties/Snek.md)
 - [SoulHarvester](items/properties/SoulHarvester.md)
 - [SpeedBoi](items/properties/SpeedBoi.md)
 - [SpicyMeatball](items/properties/SpicyMeatball.md)
@@ -106,5 +112,6 @@ Individual item documentation files are located in `items/properties/[ItemName].
 - [TurboSocks](items/properties/TurboSocks.md)
 - [UnstableTransfusion](items/properties/UnstableTransfusion.md)
 - [WeebHeadset](items/properties/WeebHeadset.md)
+- [WizardsHat](items/properties/WizardsHat.md)
 - [Wrench](items/properties/Wrench.md)
 - [ZaWarudo](items/properties/ZaWarudo.md)

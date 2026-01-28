@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Skuleg
-- **Constructor Address**: 0x180423810
+- **Constructor Address**: 0x180464160
 - **Category**: Difficulty Modifier / Meta Progression
 - **Rarity**: Unknown
 - **Base Class**: ItemBase (inherit standard item behavior)
@@ -78,4 +78,4 @@ public class ItemSkuleg : ItemBase
 
 ---
 
-*Data extracted from IL2CPP decompiled constructor at address 0x180423810 and C# decompiled source files*
+*Data extracted from IL2CPP decompiled constructor at address 0x180464160 and C# decompiled source files*

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Oats
-- **Constructor Address**: 0x180421AC0
+- **Constructor Address**: 0x180461C60
 - **Category**: Health/Healing
 - **Rarity**: Common
 

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GlovesBlood
-- **Constructor Address**: 0x18040DA40
+- **Constructor Address**: 0x180458B10
 - **Category**: Health/Healing & Elemental/Status
 - **Rarity**: Unknown
 

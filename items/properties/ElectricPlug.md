@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 45 (EItem.ElectricPlug)
-- **Constructor Address**: 0x1804097A0
+- **Constructor Address**: 0x180455FB0
 - **Category**: Elemental/Status (Lightning-based defensive item)
 - **Rarity**: Unknown
 
@@ -14,7 +14,8 @@
 | radius | float | 13.0 | Base chain lightning radius |
 | radiusPerAmount | float | 4.0 | Radius increase per stack |
 | targets | int | 15 | Base number of targets |
-| targetsPerAmount | int | 5 | Additional targets per stack |
+| targetsPerAmount | int | 4 | Additional targets per stack |
+| targetsDefault | int | 6 | Default target count at 1 stack |
 
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |
@@ -29,7 +30,7 @@
 
 ## Formulas
 - **Final Radius**: `(EStat9 * radiusPerAmount) + 12.0`
-- **Final Targets**: `targetsPerAmount + 6` (Note: Inconsistency in constructor vs items.md)
+- **Final Targets**: `targetsDefault + targetsPerAmount * (amount - 1)` = `6 + 4 * (amount - 1)`
 - **Base Damage**: 0.5 (from reuseDc container)
 
 ## Implementation Details
@@ -52,7 +53,8 @@ public ItemElectricPlug(ItemInventory itemInventoryRef)
     radius = 13.0f;
     radiusPerAmount = 4.0f;
     targets = 15;
-    targetsPerAmount = 5;
+    targetsPerAmount = 4;
+    targetsDefault = 6;
 
     base(itemInventoryRef);
 }
@@ -62,7 +64,7 @@ protected override void OnInitOrAmountChanged()
 {
     float radiusMultiplier = PlayerStats.GetStat(EStat.AreaMultiplier); // EStat 9
     radius = (radiusMultiplier * radiusPerAmount) + 12.0f;
-    targets = targetsPerAmount + 6; // Note: May be incorrect, should be amount * targetsPerAmount + 15
+    targets = targetsDefault + targetsPerAmount * (amount - 1);
 }
 
 // Init logic
@@ -92,7 +94,7 @@ private void OnPlayerHit()
 - **Defensive Item**: Activates in response to taking damage, providing retaliation
 - **EStat 9 Scaling**: Radius scales with Area/Radius Multiplier stat
 - **Lightning Debuff**: Likely applies lightning debuff (ID 8) to affected enemies
-- **Constructor Inconsistency**: The OnInitOrAmountChanged method shows `targets = targetsPerAmount + 6` instead of the expected `amount * targetsPerAmount + targets` formula
+- **Target Scaling**: Formula is `targetsDefault + targetsPerAmount * (amount - 1)` which gives 6 targets at 1 stack, 10 at 2, 14 at 3, etc.
 - **Event System**: Uses Unity's delegate system for event handling
 
 ## Related Items
@@ -103,4 +105,4 @@ private void OnPlayerHit()
 
 ---
 
-*Documentation generated from extracted IL2CPP constructor at 0x1804097A0 and decompiled C# class*
+*Documentation generated from extracted IL2CPP constructor at 0x180455FB0 and decompiled C# class*

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.IdleJuice (from decompiled C#)
-- **Constructor Address**: 0x180412E70
+- **Constructor Address**: 0x18045E690
 - **Category**: Utility/Damage Enhancement
 - **Rarity**: Unknown
 

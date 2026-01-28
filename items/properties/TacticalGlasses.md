@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.TacticalGlasses
-- **Constructor Address**: 0x1804263F0
+- **Constructor Address**: 0x180467BE0
 - **Category**: Damage/Power
 - **Rarity**: Unknown
 

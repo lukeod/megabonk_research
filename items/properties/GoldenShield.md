@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GoldenShield
-- **Constructor Address**: 0x1804104E0
+- **Constructor Address**: 0x18045B770
 - **Category**: Defensive/Economy
 - **Rarity**: Unknown
 
@@ -10,10 +10,11 @@
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
 | chancePerAmount | float | 1.0 | Chance multiplier per stack |
-| goldPerAmount | int | 3 | Base gold per stack |
+| goldPerAmount | int | 6 | Base gold per stack |
+| cooldown | float | 0.1 | Cooldown between gold generation (seconds) |
+| selfDamageCooldown | float | 0.2 | Cooldown for self-damage triggers (seconds) |
 | chance | float | Dynamic | Calculated as amount * chancePerAmount |
 | goldOnHit | int | Dynamic | Calculated gold amount on damage taken |
-| extraGoldFromOverload | int | 0 | Additional gold (implementation specific) |
 
 ## Stat Modifiers
 No direct EStat modifications - this item operates through event-driven mechanics.
@@ -36,15 +37,15 @@ chance = amount * 1.0 = amount (100% per stack)
 ```
 levelBonus = min(characterLevel * 0.2, 20.0)
 goldOnHit = amount * (levelBonus + goldPerAmount)
-goldOnHit = amount * (min(level * 0.2, 20) + 3)
+goldOnHit = amount * (min(level * 0.2, 20) + 6)
 ```
 
 ### Examples:
-- **Level 1, 1 stack**: 1 * (0.2 + 3) = 3.2 → 3 gold
-- **Level 10, 1 stack**: 1 * (2.0 + 3) = 5 gold
-- **Level 50, 1 stack**: 1 * (10.0 + 3) = 13 gold
-- **Level 100+, 1 stack**: 1 * (20.0 + 3) = 23 gold (capped)
-- **Level 100+, 5 stacks**: 5 * (20.0 + 3) = 115 gold
+- **Level 1, 1 stack**: 1 * (0.2 + 6) = 6.2 → 6 gold
+- **Level 10, 1 stack**: 1 * (2.0 + 6) = 8 gold
+- **Level 50, 1 stack**: 1 * (10.0 + 6) = 16 gold
+- **Level 100+, 1 stack**: 1 * (20.0 + 6) = 26 gold (capped)
+- **Level 100+, 5 stacks**: 5 * (20.0 + 6) = 130 gold
 
 ## Implementation Details
 - **Update Frequency**: On damage taken (event-driven)
@@ -56,7 +57,9 @@ goldOnHit = amount * (min(level * 0.2, 20) + 3)
 public class ItemGoldenShield : ItemBase
 {
     public float chancePerAmount = 1.0f;
-    public int goldPerAmount = 3;
+    public int goldPerAmount = 6;
+    public float cooldown = 0.1f;
+    public float selfDamageCooldown = 0.2f;
     public float chance;
     public int goldOnHit;
 
@@ -108,7 +111,7 @@ public class ItemGoldenShield : ItemBase
 
 ## Assembly Analysis
 The native implementation shows:
-- Constructor sets `chancePerAmount = 1.0` and `goldPerAmount = 3`
+- Constructor sets `chancePerAmount = 1.0`, `goldPerAmount = 6`, `cooldown = 0.1`, `selfDamageCooldown = 0.2`
 - OnInitOrAmountChanged calculates dynamic values using character level
 - Event subscription/unsubscription in Init/Cleanup methods
 - OnPlayerTakeDamage spawns gold at player position using MoneyUtility
@@ -119,4 +122,4 @@ The native implementation shows:
 - `megabonk_research/items.md` - Item overview and base properties
 - `extracted_constructors/items/GoldenShield.c` - Constructor implementation
 - `decompiled/Assembly-CSharp/.../ItemGoldenShield.cs` - C# class structure
-- IDA Pro disassembly at 0x180410400 - OnPlayerTakeDamage implementation
+- IDA Pro disassembly at 0x18045B770 - Constructor implementation

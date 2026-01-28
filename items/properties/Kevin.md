@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: ItemKevin
-- **Constructor Address**: 0x180414E20
+- **Constructor Address**: 0x18045F840
 - **Category**: Self-Damage / Risk-Reward
 - **Rarity**: Unknown
 

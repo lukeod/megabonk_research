@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: EItem.DemonicSoul
-- **Constructor Address**: 0x180408150
+- **Constructor Address**: 0x1804548D0
 - **Category**: Damage/Power (Stack-based)
 - **Rarity**: Unknown
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| maxStacksPerAmount | int | sub_180338070(this, 0) | Dynamic calculation based on function |
+| maxStacksPerAmount | int | sub_180331070(this, 0) | Dynamic calculation based on function |
 | stacks | int | 0 | Current stack count |
 | maxStacks | int | amount * maxStacksPerAmount | Maximum stacks possible |
 | lastUsedStacks | int | 0 | Tracking for stat updates |
@@ -55,7 +55,7 @@ public class ItemDemonicSoul : ItemBase
     // Constructor
     public ItemDemonicSoul(ItemInventory itemInventoryRef)
     {
-        this.maxStacksPerAmount = CalculateMaxStacksPerAmount(); // sub_180338070
+        this.maxStacksPerAmount = CalculateMaxStacksPerAmount(); // sub_180331070
         base(itemInventoryRef);
     }
 
@@ -125,7 +125,7 @@ public class ItemDemonicSoul : ItemBase
 
 ## Missing Information
 - **attackDamagePerStack Value**: Static field value not available in decompiled sources
-- **sub_180338070 Function**: Implementation details of maxStacksPerAmount calculation
+- **sub_180331070 Function**: Implementation details of maxStacksPerAmount calculation
 - **OnEnemyDied Implementation**: Actual logic for stack gaining conditions
 - **Localization Keys**: Item name and description strings
 

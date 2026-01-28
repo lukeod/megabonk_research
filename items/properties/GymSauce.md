@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GymSauce
-- **Constructor Address**: 0x18040C050
+- **Constructor Address**: 0x18043E590
 - **Category**: Damage/Power
 - **Rarity**: Common (inferred from simple stat scaling mechanics)
 
@@ -70,4 +70,4 @@ public class ItemGymSauce : ItemBase
 
 ---
 
-*Data sources: extracted_constructors/items/GymSauce.c, decompiled C# class ItemGymSauce.cs, megabonk_research/items.md*
+*Data extracted from IL2CPP constructor at 0x18043E590 and decompiled C# sources*

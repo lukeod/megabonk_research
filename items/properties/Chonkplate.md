@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Chonkplate
-- **Constructor Address**: 0x180404BB0
+- **Constructor Address**: 0x18043E330
 - **Category**: Defensive/Health Enhancement
 - **Rarity**: Standard Item
 

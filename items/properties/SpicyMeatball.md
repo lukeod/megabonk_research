@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.SpicyMeatball (ID: 15)
-- **Constructor Address**: 0x180425B80
+- **Constructor Address**: 0x1804673A0
 - **Category**: Area Damage / Chain Explosion
 - **Rarity**: Unknown
 
@@ -115,4 +115,4 @@ public override void Tick()
 
 ---
 
-*Generated from decompiled IL2CPP constructor at 0x180425B80 and C# interface analysis*
+*Generated from decompiled IL2CPP constructor at 0x1804673A0 and C# interface analysis*

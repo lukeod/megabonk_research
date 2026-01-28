@@ -1,8 +1,8 @@
 # Campfire
 
 ## Overview
-- **Item ID**: Not specified (from decompiled C#)
-- **Constructor Address**: 0x1804048B0
+- **Item ID**: EItem.Campfire
+- **Constructor Address**: 0x18043E030
 - **Category**: Utility/Healing
 - **Rarity**: Unknown
 

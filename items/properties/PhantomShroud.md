@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: PhantomShroud (from EItem enumeration)
-- **Constructor Address**: 0x180422330
+- **Constructor Address**: 0x180462710
 - **Category**: Movement/Defensive
 - **Rarity**: Unknown (not determinable from decompiled code)
 

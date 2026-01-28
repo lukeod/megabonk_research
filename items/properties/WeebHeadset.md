@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: ItemWeebHeadset
-- **Constructor Address**: 0x1804273A0
+- **Constructor Address**: 0x180468B80
 - **Category**: Elemental/Status (Charm Effect)
 - **Rarity**: Unknown
 

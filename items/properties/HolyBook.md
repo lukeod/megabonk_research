@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 54 (EItem.HolyBook)
-- **Constructor Address**: 0x180411D80
+- **Constructor Address**: 0x18045D5A0
 - **Category**: Health/Healing
 - **Rarity**: Standard Item
 

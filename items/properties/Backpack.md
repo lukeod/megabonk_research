@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Backpack
-- **Constructor Address**: 0x1803FFFA0
+- **Constructor Address**: 0x180438D70
 - **Category**: Utility/Support
 - **Rarity**: [Not determinable from constructor code]
 
@@ -65,4 +65,4 @@ public class ItemBackpack : ItemBase
 
 ---
 
-*Data extracted from IL2CPP constructor at 0x1803FFFA0 and decompiled C# source*
+*Data extracted from IL2CPP constructor at 0x180438D70 and decompiled C# source*

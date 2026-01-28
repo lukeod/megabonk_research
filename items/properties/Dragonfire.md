@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Dragonfire (ID: 22)
-- **Constructor Address**: 0x180408780
+- **Constructor Address**: 0x180454F40
 - **Category**: Elemental/Proc-based Damage Item
 - **Rarity**: Unknown (determinable from game data)
 
@@ -159,5 +159,5 @@ private void CreateFirefield(Enemy enemy)
 
 ---
 
-*Data extracted from IL2CPP decompilation at constructor address 0x180408780*
+*Data extracted from IL2CPP decompilation at constructor address 0x180454F40*
 *Last updated: Analysis of MegaBonk decompiled source*

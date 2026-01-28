@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.TurboSocks
-- **Constructor Address**: 0x180403080
+- **Constructor Address**: 0x18043C780
 - **Category**: Movement/Speed Enhancement
 - **Rarity**: Unknown (not determinable from available code)
 

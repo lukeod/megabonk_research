@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 33 (EItem.Ghost)
-- **Constructor Address**: 0x18040D050
+- **Constructor Address**: 0x180457DF0
 - **Category**: Utility/Special
 - **Rarity**: Unknown
 

@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: EItem.GlovesPoison
-- **Constructor Address**: 0x18040F360
+- **Constructor Address**: 0x18045A4C0
 - **Category**: Elemental/Status (Area of Effect Poison)
 - **Rarity**: Unknown
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| cooldown | float | 9.5 | Seconds between activations |
+| cooldown | float | 8.5 | Seconds between activations |
 | baseDamageMultiplier | float | 1.5 | Base damage scaling factor |
 | baseRadius | float | 15.0 | Area of effect radius |
 | poisonStacksPerAmount | int | 10 | Poison stacks applied per item stack |
@@ -26,7 +26,7 @@
 - **Poison Area Attack**: On hit proc, damages all enemies within `baseRadius` (15.0 units) of the hit target
 - **Poison Debuff**: Applies poison debuff (ID 1) for 5.0 seconds to all affected enemies
 - **Poison Stacking**: Each item stack applies `poisonStacksPerAmount * amount` poison stacks (10 per stack)
-- **Cooldown System**: Has a 9.5 second cooldown after activation, tracked via `readyAtTime`
+- **Cooldown System**: Has an 8.5 second cooldown after activation, tracked via `readyAtTime`
 - **Visual Effects**: Spawns poison effect at target location when activated
 
 ## Formulas
@@ -34,7 +34,7 @@
 - **Area Radius**: Fixed at 15.0 units (no scaling)
 - **Poison Stacks**: `poisonStacksPerAmount * amount` (10 × item stack count)
 - **Poison Duration**: Fixed at 5.0 seconds
-- **Cooldown Reset**: `MyTime.time + cooldown` (current time + 9.5 seconds)
+- **Cooldown Reset**: `MyTime.time + cooldown` (current time + 8.5 seconds)
 
 ## Implementation Details
 - **Update Frequency**: Checked on each hit via `ProcOnHitEffects`
@@ -48,7 +48,7 @@
 // Simplified constructor logic
 public ItemGlovesPoison(ItemInventory itemInventoryRef)
 {
-    this.cooldown = 9.5f;
+    this.cooldown = 8.5f;
     this.baseDamageMultiplier = 1.5f;
     this.baseRadius = 15.0f;
     this.poisonStacksPerAmount = 10;
@@ -113,4 +113,4 @@ public override void ProcOnHitEffects(DamageContainer dc)
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x18040F360 and C# interface analysis*
+*Data extracted from decompiled IL2CPP constructor at 0x18045A4C0 and C# interface analysis*

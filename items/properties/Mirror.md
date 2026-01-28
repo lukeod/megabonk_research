@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 48 (Mirror)
-- **Constructor Address**: 0x180416A80
+- **Constructor Address**: 0x180461620
 - **Category**: Defensive - Damage Reflection
 - **Rarity**: Unknown (determinable from game data)
 

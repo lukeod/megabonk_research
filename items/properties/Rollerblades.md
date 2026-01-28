@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Rollerblades
-- **Constructor Address**: 0x180422F10
+- **Constructor Address**: 0x180463860
 - **Category**: Movement/Attack Speed
 - **Rarity**: Unknown
 
@@ -84,7 +84,7 @@ public override void Tick()
 ## Technical Notes
 - **Performance Consideration**: Updates only 4 times per second to avoid excessive calculations
 - **Movement Detection**: Uses PlayerMovement.GetSpeedHorizontal() to measure current movement speed
-- **Base Speed Reference**: Compares against Player.baseMovementSpeed (stored at offset 33 in player data)
+- **Base Speed Reference**: Compares against Player.baseMovementSpeed (stored at offset 35 in player data)
 - **Stat Application**: Uses EStat ID 15 (Attack Speed) with additive modification type (2)
 
 ## Related Items
@@ -95,4 +95,4 @@ public override void Tick()
 
 ---
 
-*Generated from decompiled IL2CPP constructor at 0x180422F10 and C# class definition*
+*Generated from decompiled IL2CPP constructor at 0x180463860 and C# class definition*

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.BeefyRing
-- **Constructor Address**: 0x180400DC0
+- **Constructor Address**: 0x180439C30
 - **Category**: Health-based Damage Scaling
 - **Rarity**: Common/Standard
 

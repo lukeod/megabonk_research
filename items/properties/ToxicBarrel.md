@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 53 (EItem.ToxicBarrel)
-- **Constructor Address**: 0x180426C30
+- **Constructor Address**: 0x180468420
 - **Category**: Elemental/Status (Poison-based area denial)
 - **Rarity**: Unknown
 
@@ -147,4 +147,4 @@ public class ItemToxicBarrel : ItemBase
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x180426C30 and C# interface analysis*
+*Data extracted from decompiled IL2CPP constructor at 0x180468420 and C# interface analysis*

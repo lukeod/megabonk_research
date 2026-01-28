@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: ItemDemonicBlood (Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations.ItemDemonicBlood)
-- **Constructor Address**: 0x180407AE0
+- **Constructor Address**: 0x1804418A0
 - **Category**: Health/Scaling - Stack-based HP bonus item
 - **Rarity**: Unknown (not determinable from decompiled code)
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| maxStacksPerAmount | int | Function result | Calculated by sub_180338070(this, 0) |
+| maxStacksPerAmount | int | Function result | Calculated by sub_180331070(this, 0) |
 | stacks | int | 0 (initial) | Current accumulated stacks |
 | maxStacks | int | Calculated | Maximum stacks possible |
 | lastUsedStacks | int | 0 (initial) | Last processed stack count |
@@ -30,7 +30,7 @@
 ## Formulas
 - **HP Bonus**: `current_stacks * hpPerStack`
 - **Update Interval**: 1.0 second between stat recalculations
-- **Max Stacks**: Determined by `sub_180338070(this, 0)` function per item amount
+- **Max Stacks**: Determined by `sub_180331070(this, 0)` function per item amount
 
 ## Implementation Details
 - **Update Frequency**: 1.0 second intervals (when stacks change)
@@ -43,7 +43,7 @@
 // Constructor logic
 public ItemDemonicBlood(ItemInventory itemInventoryRef) : base(itemInventoryRef)
 {
-    maxStacksPerAmount = CalculateMaxStacks(this, 0); // sub_180338070
+    maxStacksPerAmount = CalculateMaxStacks(this, 0); // sub_180331070
     stacks = 0;
     lastUsedStacks = 0;
     nextUpdateTime = 0.0f;
@@ -104,4 +104,4 @@ private void OnEnemyDied(Enemy enemy, DamageContainer deathSource)
 
 ---
 
-*Generated from extracted IL2CPP constructor at 0x180407AE0 and decompiled C# interop code*
+*Generated from extracted IL2CPP constructor at 0x1804418A0 and decompiled C# interop code*

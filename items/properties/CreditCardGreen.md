@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.CreditCardGreen
-- **Constructor Address**: 0x180405AE0
+- **Constructor Address**: 0x18043F5F0
 - **Category**: Economy/Utility Item
 - **Rarity**: Unknown (requires game data analysis)
 
@@ -10,13 +10,13 @@
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
 | luckPerChestPerAmount | float | 0.02 | Luck gained per chest opened per stack |
+| chestPriceIncreasePerAmount | float | 0.1 | Chest price increase per stack (10%) |
 | luckPerChest | float | Runtime | Calculated value based on stack count |
-| accumulatedLuck | float | Runtime | Total accumulated luck from chest openings |
 
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |
 |----------|-----------|---------------|--------------|
-| 30 | Luck | Dynamic | Accumulated through chest opening events |
+| 34 | ChestPriceIncrease | chestPriceIncreasePerAmount * amount | Additive (type 2) |
 
 ## Special Mechanics
 - **Event-Driven Luck Accumulation**: Subscribes to chest opening events (`ChestWindowUi.A_Open`)
@@ -29,13 +29,14 @@
 luckPerChest = amount * luckPerChestPerAmount
 luckPerChest = amount * 0.02
 
-Total luck gain per chest = amount * 0.02
+chestPriceIncrease = amount * chestPriceIncreasePerAmount
+chestPriceIncrease = amount * 0.1
 ```
 
 ## Implementation Details
 - **Update Frequency**: Event-driven (only on chest opening)
 - **Event Subscriptions**: `ChestWindowUi.A_Open` - Chest window opening event
-- **Stack Behavior**: Linear scaling - each stack adds 2% luck per chest opened
+- **Stack Behavior**: Linear scaling - each stack adds 2% luck per chest and 10% chest price increase
 - **Memory Management**: Uses IL2CPP garbage collection barriers for event subscription
 
 ## C# Pseudocode
@@ -43,35 +44,36 @@ Total luck gain per chest = amount * 0.02
 public class ItemCreditCardGreen : ItemBase
 {
     private float luckPerChestPerAmount = 0.02f;
+    private float chestPriceIncreasePerAmount = 0.1f;
     private float luckPerChest;
-    private float accumulatedLuck;
 
     public override void Init()
     {
         // Subscribe to chest opening events
-        ChestWindowUi.A_Open += OnChestWindowOpen;
+        InteractableChest.A_ChestOpened += OnChestWindowOpen;
+        OpenChest.A_Open += OnChestWindowOpen;
     }
 
     public override void Cleanup()
     {
         // Unsubscribe from chest opening events
-        ChestWindowUi.A_Open -= OnChestWindowOpen;
-    }
-
-    private void OnChestWindowOpen()
-    {
-        // Calculate luck bonus based on current stack amount
-        float luckBonus = amount * luckPerChestPerAmount;
-        accumulatedLuck += luckBonus;
-
-        // Apply temporary luck boost to player stats
-        // (Implementation details not visible in decompiled code)
+        InteractableChest.A_ChestOpened -= OnChestWindowOpen;
+        OpenChest.A_Open -= OnChestWindowOpen;
     }
 
     protected override void OnInitOrAmountChanged()
     {
         // Update calculated values when stack amount changes
         luckPerChest = amount * luckPerChestPerAmount;
+
+        // Apply chest price increase stat modifier
+        var modifier = new StatModifier
+        {
+            operationType = 2,  // Additive
+            stat = 34,          // ChestPriceIncrease
+            value = chestPriceIncreasePerAmount * amount
+        };
+        SetStat(modifier);
     }
 }
 ```
@@ -105,6 +107,6 @@ public class ItemCreditCardGreen : ItemBase
 
 **Data Sources:**
 - `megabonk_research/items.md` - Base properties and mechanics overview
-- `extracted_constructors/items/CreditCardGreen.c` - Native constructor implementation
+- `extracted_constructors/items/CreditCardGreen.c` - Native constructor implementation (0x18043F5F0)
 - `decompiled/Assembly-CSharp/.../ItemCreditCardGreen.cs` - C# class structure and method signatures
 - `decompiled/Assembly-CSharp/.../ItemBase.cs` - Base class understanding

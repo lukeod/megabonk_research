@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: DemonBlade (from EItem enum)
-- **Constructor Address**: 0x180407420
+- **Constructor Address**: 0x1804411E0
 - **Category**: Hybrid Damage/Healing Item
 - **Rarity**: Unknown (no specific rarity data found in constructor)
 
@@ -104,4 +104,4 @@ private void OnEnemyDamaged(Enemy enemy, DamageContainer damageContainer)
 
 ---
 
-*Data extracted from IL2CPP constructor at 0x180407420 and decompiled C# class structure*
+*Data extracted from IL2CPP constructor at 0x1804411E0 and decompiled C# class structure*

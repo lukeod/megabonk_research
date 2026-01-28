@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.ZaWarudo
-- **Constructor Address**: 0x1803FFD80
+- **Constructor Address**: 0x180438B50
 - **Static Constructor Address**: 0x180427640
 - **Category**: Time Manipulation/Utility
 - **Rarity**: Legendary (inferred from unique time-stop mechanic and JoJo reference)

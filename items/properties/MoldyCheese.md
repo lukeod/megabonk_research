@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.MoldyCheese
-- **Constructor Address**: 0x180421870
+- **Constructor Address**: 0x180461A10
 - **Category**: Status Effect (Poison)
 - **Rarity**: Common
 
@@ -127,4 +127,4 @@ public override void Tick() {
 
 ---
 
-*Data extracted from IL2CPP decompiled constructor at 0x180421870 and C# class definition.*
+*Data extracted from IL2CPP decompiled constructor at 0x180461A10 and C# class definition.*

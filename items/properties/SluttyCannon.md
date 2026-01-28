@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.SluttyCannon (29)
-- **Constructor Address**: 0x180423E20
+- **Constructor Address**: 0x180464800
 - **Category**: Projectile/Proc-based Damage
 - **Rarity**: Unknown
 
@@ -146,4 +146,4 @@ public override void ProcOnHitEffects(DamageContainer dc) {
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x180423E20 and C# interop layer*
+*Data extracted from decompiled IL2CPP constructor at 0x180464800 and C# interop layer*

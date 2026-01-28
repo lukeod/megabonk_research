@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.CreditCardRed (ID: 63)
-- **Constructor Address**: 0x180406010
+- **Constructor Address**: 0x18043FD80
 - **Category**: Economy/Damage
 - **Rarity**: Unknown
 
@@ -49,12 +49,16 @@ public class ItemCreditCardRed : ItemBase
 
     public override void Init()
     {
-        ChestWindowUi.A_Open += OnChestWindowOpen;
+        // Subscribe to both chest opening events
+        InteractableChest.A_ChestOpened += OnChestWindowOpen;
+        OpenChest.A_Open += OnChestWindowOpen;
     }
 
     public override void Cleanup()
     {
-        ChestWindowUi.A_Open -= OnChestWindowOpen;
+        // Unsubscribe from chest opening events
+        InteractableChest.A_ChestOpened -= OnChestWindowOpen;
+        OpenChest.A_Open -= OnChestWindowOpen;
     }
 
     private void OnChestWindowOpen()

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: ItemGlovesCursed
-- **Constructor Address**: 0x18040E3F0
+- **Constructor Address**: 0x180459560
 - **Category**: Cursed Weapon/Area Effect
 - **Rarity**: Unknown (likely rare due to cursed nature)
 
@@ -17,6 +17,7 @@
 | procChance | float | Calculated | Final calculated proc chance |
 | reuseDc | DamageContainer | Object | Reusable damage container for efficiency |
 | fx | EffectPlayer | Object | Visual effect player |
+| maxProcsPerTick | int | 250 | Maximum procs allowed per tick |
 
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |

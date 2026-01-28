@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Beacon (from enum)
-- **Constructor Address**: 0x180400920
+- **Constructor Address**: 0x1804396F0
 - **Category**: Utility/Environmental Enhancement
 - **Rarity**: Unknown (not determinable from constructor code)
 

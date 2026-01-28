@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 56 (EItem.SpeedBoi)
-- **Constructor Address**: 0x180425570
+- **Constructor Address**: 0x180466DA0
 - **Category**: Time Manipulation / Defensive Survival
 - **Rarity**: Unknown
 
@@ -22,15 +22,16 @@
 
 ## Special Mechanics
 - **Time Slowdown Trigger**: Automatically activates when player HP drops below 50%
-- **Duration Calculation**: `duration = clamp(amount * 2.0 + 8.0, 0, 15.0)`
+- **Duration Calculation**: `duration = clamp(amount * 2.0 + 8.0, 1.0, 15.0)`
   - Base duration: 8 seconds
   - Per stack: +2 seconds
+  - Minimum: 1 second
   - Maximum: 15 seconds
 - **Damage Boost**: 2x damage multiplier during time slowdown effect
 - **Cooldown System**: 10 second cooldown between activations
 
 ## Formulas
-- **Slowdown Duration**: `min(15, max(0, amount * 2 + 8))`
+- **Slowdown Duration**: `min(15, max(1, amount * 2 + 8))`
 - **HP Threshold**: `currentHP / maxHP < 0.5`
 - **Damage During Slowdown**: `baseDamage * 2.0`
 
@@ -57,7 +58,7 @@ public ItemSpeedBoi(ItemInventory itemInventoryRef) : base(itemInventoryRef)
 protected override void OnInitOrAmountChanged()
 {
     float calculatedDuration = amount * durationPerAmount + 8.0f;
-    duration = Mathf.Clamp(calculatedDuration, 0f, 15.0f);
+    duration = Mathf.Clamp(calculatedDuration, 1.0f, 15.0f);
 }
 
 // Trigger condition
@@ -95,4 +96,4 @@ public override void PreAttack(DamageContainer dc, StatComponents itemAttackModi
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at address 0x180425570 and C# interface analysis*
+*Data extracted from decompiled IL2CPP constructor at address 0x180466DA0 and C# interface analysis*

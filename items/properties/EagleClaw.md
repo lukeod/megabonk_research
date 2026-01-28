@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.EagleClaw
-- **Constructor Address**: 0x180408BC0
+- **Constructor Address**: 0x180455390
 - **Category**: Damage/Control - Airborne Specialist
 - **Rarity**: Unknown (not available in constructor data)
 
@@ -123,4 +123,4 @@ public override void ProcOnHitEffects(DamageContainer dc)
 
 ---
 
-*Generated from decompiled IL2CPP constructor at 0x180408BC0 and C# interface analysis*
+*Generated from decompiled IL2CPP constructor at 0x180455390 and C# interface analysis*

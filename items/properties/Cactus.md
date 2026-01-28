@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Cactus
-- **Constructor Address**: 0x180404130
+- **Constructor Address**: 0x18043D890
 - **Category**: Defensive/Retaliation
 - **Rarity**: Common
 

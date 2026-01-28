@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Gasmask
-- **Constructor Address**: 0x18040CAE0
+- **Constructor Address**: 0x180457880
 - **Category**: Defensive/Adaptive
 - **Rarity**: Unknown
 

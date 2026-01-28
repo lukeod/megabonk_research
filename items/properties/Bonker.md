@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Bonker (ID: 3)
-- **Constructor Address**: 0x180402640
+- **Constructor Address**: 0x18043BD60
 - **Category**: Area of Effect / Proc-based Damage
 - **Rarity**: Unknown (determinable from game data)
 
@@ -13,8 +13,9 @@
 | baseDamageMultiplier | float | 20.0 | Base damage multiplier |
 | chancePerStack | float | 0.015 | 1.5% additional chance per stack |
 | damageMultiplierPerStack | float | 10.0 | Additional damage per stack |
-| radiusPerStack | float | 2.0 | Radius increase per stack |
-| radius | float | 3.5 | Base radius |
+| radiusPerStack | float | 1.0 | Radius increase per stack |
+| radius | float | 3.5 | Base radius (initial value) |
+| maxRadius | float | 10.0 | Maximum radius cap |
 | maxProcsPerTick | int | 5 | Maximum procs per tick/frame |
 | damageSource | string | "Bonker" | Damage source identifier |
 
@@ -27,7 +28,7 @@
 - **Area Damage**: Creates explosive area damage on hit proc
 - **Knockback Multiplier**: Applies 1.25x knockback to area damage
 - **Proc Limitation**: Maximum 5 procs per game tick to prevent performance issues
-- **Dynamic Radius**: Final radius = (amount * radius) + 7.0
+- **Dynamic Radius**: Final radius = min((amount * radiusPerStack) + 6.0, maxRadius)
 - **Chain Reactions**: Can damage multiple enemies in radius after initial hit
 
 ## Formulas
@@ -54,8 +55,10 @@ finalDamage = originalDamage * damageMultiplier
 
 ### Radius Calculation
 ```
-finalRadius = (amount * radius) + 7.0
-finalRadius = (amount * 3.5) + 7.0
+finalRadius = (amount * radiusPerStack) + 6.0
+finalRadius = (amount * 1.0) + 6.0
+if (finalRadius > maxRadius):
+    finalRadius = maxRadius  // maxRadius = 10.0
 ```
 
 ### Knockback Calculation
@@ -79,8 +82,9 @@ public ItemBonker(ItemInventory itemInventoryRef) : base(itemInventoryRef)
     baseDamageMultiplier = 20.0f;
     chancePerStack = 0.015f;
     damageMultiplierPerStack = 10.0f;
-    radiusPerStack = 2.0f;
+    radiusPerStack = 1.0f;
     radius = 3.5f;
+    maxRadius = 10.0f;
     maxProcsPerTick = 5;
     damageSource = "Bonker";
 
@@ -102,7 +106,9 @@ protected override void OnInitOrAmountChanged()
         damageMultiplier = baseDamageMultiplier + (amount - 1) * damageMultiplierPerStack;
     }
 
-    radius = (amount * radius) + 7.0f;
+    radius = (amount * radiusPerStack) + 6.0f;
+    if (radius > maxRadius)
+        radius = maxRadius;
 }
 
 // Proc on hit

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: Unknown
-- **Constructor Address**: 0x180405580
+- **Constructor Address**: 0x18043ED00
 - **Category**: Movement/Speed - Defensive Mobility
 - **Rarity**: Unknown
 
@@ -13,7 +13,6 @@
 | speedPerStack | float | 0.3 | Movement speed per temporary coward stack |
 | maxStacks | int | 2 | Maximum temporary stacks allowed |
 | stacksPerAmount | int | 2 | Temporary stacks gained per item stack |
-| extraDurationPerAmount | float | Unknown | Additional duration per stack (field exists) |
 | stacksResetAtTime | float | Dynamic | Timestamp when temporary stacks expire |
 | stacks | int | Dynamic | Current temporary stacks |
 
@@ -33,7 +32,7 @@
 - **Temporary Speed Bonus**: `stacks * 0.3` (30% per temporary stack)
 - **Total Speed Bonus**: `(amount * 0.05) + (stacks * 0.3)`
 - **Max Temporary Stacks**: `amount * 2` (2 stacks per item)
-- **Stack Duration**: Based on `extraDurationPerAmount` + base duration
+- **Stack Duration**: Based on `stacksResetAtTime` timer value
 
 ## Implementation Details
 - **Update Frequency**: Per-frame via Tick() method
@@ -57,7 +56,7 @@ void OnDamage(PlayerHealth ph, DamageContainer dc, bool shieldDamage) {
 void AddTemporaryStack() {
     if (stacks < maxStacks * amount) {
         stacks = Math.Min(stacks + stacksPerAmount, maxStacks * amount);
-        stacksResetAtTime = MyTime.time + baseDuration + (extraDurationPerAmount * amount);
+        stacksResetAtTime = MyTime.time + baseDuration;
         RefreshStats();
     }
 }
@@ -100,5 +99,5 @@ void RefreshStats() {
 ---
 
 *Data extracted from Assembly-CSharp.dll decompilation and IL2CPP constructor analysis*
-*Constructor address: 0x180405580*
+*Constructor address: 0x18043ED00*
 *Analysis based on MegaBonk reverse engineering project*

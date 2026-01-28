@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.TimeBracelet
-- **Constructor Address**: 0x180400680
+- **Constructor Address**: 0x180439450
 - **Category**: Time/Temporal Damage
 - **Rarity**: [Unknown from available data]
 
@@ -63,4 +63,4 @@ public class ItemTimeBracelet : ItemBase
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at address 0x180400680 and C# class Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations.ItemTimeBracelet*
+*Data extracted from decompiled IL2CPP constructor at address 0x180439450 and C# class Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations.ItemTimeBracelet*

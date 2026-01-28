@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Borgor
-- **Constructor Address**: 0x180402DF0
+- **Constructor Address**: 0x18043C4F0
 - **Category**: Healing/Survival
 - **Rarity**: Unknown
 

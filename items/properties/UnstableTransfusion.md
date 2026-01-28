@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: EItem.UnstableTransfusion
-- **Constructor Address**: 0x180427280
+- **Constructor Address**: 0x180468A60
 - **Category**: Status Effect / Bleeding
 - **Rarity**: Unknown (determinable from game data)
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| chanceToStackPerAmount | float | 0.27 | 27% base chance per stack |
+| chanceToStackPerAmount | float | 0.35 | 35% base chance per stack |
 | totalChance | float | Dynamic | Calculated as amount * chanceToStackPerAmount |
 
 ## Stat Modifiers
@@ -34,7 +34,7 @@
 ### Total Chance Calculation
 ```
 totalChance = amount * chanceToStackPerAmount
-totalChance = amount * 0.27
+totalChance = amount * 0.35
 ```
 
 ### Stack Determination
@@ -54,11 +54,11 @@ if (TryProc(procCoefficient, remainderChance)) {
 ```
 
 ### Examples
-- **1 stack**: 27% chance for 1 bleeding stack
-- **2 stacks**: 54% chance - guaranteed 0 stacks + 54% chance for 1 stack
-- **3 stacks**: 81% chance - guaranteed 0 stacks + 81% chance for 1 stack
-- **4 stacks**: 108% chance - guaranteed 1 stack + 8% chance for 1 additional stack
-- **8 stacks**: 216% chance - guaranteed 2 stacks + 16% chance for 1 additional stack
+- **1 stack**: 35% chance for 1 bleeding stack
+- **2 stacks**: 70% chance - guaranteed 0 stacks + 70% chance for 1 stack
+- **3 stacks**: 105% chance - guaranteed 1 stack + 5% chance for 1 additional stack
+- **4 stacks**: 140% chance - guaranteed 1 stack + 40% chance for 1 additional stack
+- **8 stacks**: 280% chance - guaranteed 2 stacks + 80% chance for 1 additional stack
 
 ## Implementation Details
 - **Update Frequency**: On-demand (ProcOnHitEffects)
@@ -70,7 +70,7 @@ if (TryProc(procCoefficient, remainderChance)) {
 ```csharp
 // Constructor logic
 public void Constructor(ItemInventory itemInventoryRef) {
-    chanceToStackPerAmount = 0.27f;
+    chanceToStackPerAmount = 0.35f;
     base.Constructor(itemInventoryRef);
 }
 
@@ -107,7 +107,7 @@ public void ProcOnHitEffects(DamageContainer dc) {
 ```
 
 ## Technical Notes
-- **Floating Point Precision**: Uses 0.27000001 in native code due to IEEE-754 representation
+- **Floating Point Precision**: Uses 0.34999999 in native code due to IEEE-754 representation
 - **Math.Floor Usage**: Ensures deterministic guaranteed stack calculation
 - **Proc Coefficient Scaling**: Both initial proc and remainder proc respect damage container's proc coefficient
 - **Null Safety**: Includes checks for null damage container and enemy
@@ -123,5 +123,5 @@ public void ProcOnHitEffects(DamageContainer dc) {
 *Data sources:*
 - *megabonk_research/items.md (lines 1098-1110)*
 - *decompiled/Assembly-CSharp/Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations/ItemUnstableTransfusion.cs*
-- *extracted_constructors/items/UnstableTransfusion.c (constructor at 0x180427280, OnInitOrAmountChanged at 0x180402F90, ProcOnHitEffects at 0x180427180)*
+- *extracted_constructors/items/UnstableTransfusion.c (constructor at 0x180468A60, OnInitOrAmountChanged at 0x18043C690, ProcOnHitEffects at 0x180468960)*
 - *decompiled/Assembly-CSharp/Assets.Scripts.Inventory__Items__Pickups.Items/ItemBase.cs (base class understanding)*

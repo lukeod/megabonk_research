@@ -2,14 +2,14 @@
 
 ## Overview
 - **Item ID**: EItem.GoldenSneakers
-- **Constructor Address**: 0x180410890
+- **Constructor Address**: 0x18045BB70
 - **Category**: Economy/Movement
 - **Rarity**: Common
 
 ## Base Properties
 | Property | Type | Value | Notes |
 |----------|------|-------|-------|
-| goldPerMeterBase | float | 0.05 | Base gold generation per meter traveled |
+| goldPerMeterBase | float | 0.1 | Base gold generation per meter traveled |
 | checkInterval | float | 0.5 | How often position is checked (seconds) |
 | goldPerMeter | float | Dynamic | Calculated gold per meter (runtime) |
 | nextCheckTime | float | Dynamic | Next scheduled position check |
@@ -25,19 +25,19 @@
 - **Gold Generation**: Generates gold based on distance traveled by the player
 - **Distance Tracking**: Monitors player movement every 0.5 seconds
 - **Gold Accumulation**: Accumulates fractional gold until reaching 1.0, then spawns actual gold pickup
-- **Scaling Formula**: goldPerMeter = (amount-1) * 0.025 + 0.05
+- **Scaling Formula**: goldPerMeter = (amount-1) * 0.05 + 0.1
 
 ## Formulas
-- **Gold per Meter**: `goldPerMeter = (amount - 1) * 0.025 + goldPerMeterBase`
-- **Base Gold Rate**: `0.05 gold per meter`
-- **Stack Scaling**: `+0.025 gold per meter per additional stack`
+- **Gold per Meter**: `goldPerMeter = (amount - 1) * 0.05 + goldPerMeterBase`
+- **Base Gold Rate**: `0.1 gold per meter`
+- **Stack Scaling**: `+0.05 gold per meter per additional stack`
 - **Distance Calculation**: Uses Vector3 magnitude calculation between current and last position
 - **Gold Spawning**: Spawns `floor(accumulatedGold)` gold when accumulator >= 1.0
 
 ## Implementation Details
 - **Update Frequency**: Every 0.5 seconds (checkInterval)
 - **Event Subscriptions**: None (purely time-based)
-- **Stack Behavior**: Linear scaling - each additional stack adds 0.025 gold per meter
+- **Stack Behavior**: Linear scaling - each additional stack adds 0.05 gold per meter
 - **Gold Spawning**: Uses `MoneyUtility.SpawnMoney()` at player position
 - **Position Tracking**: Stores last known player position as Vector3
 
@@ -45,7 +45,7 @@
 ```csharp
 // Constructor logic
 public ItemGoldenSneakers(ItemInventory itemInventoryRef) {
-    this.goldPerMeterBase = 0.05f;
+    this.goldPerMeterBase = 0.1f;
     this.checkInterval = 0.5f;
     base(itemInventoryRef);
 }
@@ -54,7 +54,7 @@ public ItemGoldenSneakers(ItemInventory itemInventoryRef) {
 protected override void OnInitOrAmountChanged() {
     // Calculate scaling gold per meter
     goldPerMeter = (amount - 1) * (goldPerMeterBase * 0.5f) + goldPerMeterBase;
-    // Equivalent to: goldPerMeter = (amount - 1) * 0.025f + 0.05f
+    // Equivalent to: goldPerMeter = (amount - 1) * 0.05f + 0.1f
 
     // Store initial player position
     lastPos = MyPlayer.Instance.transform.position;
@@ -101,12 +101,12 @@ public override void Tick() {
 ## Example Scaling
 | Stacks | Gold per Meter | Gold per 100m | Notes |
 |--------|----------------|---------------|-------|
-| 1 | 0.050 | 5.0 | Base rate |
-| 2 | 0.075 | 7.5 | +50% increase |
-| 3 | 0.100 | 10.0 | +100% increase |
-| 4 | 0.125 | 12.5 | +150% increase |
-| 5 | 0.150 | 15.0 | +200% increase |
+| 1 | 0.10 | 10.0 | Base rate |
+| 2 | 0.15 | 15.0 | +50% increase |
+| 3 | 0.20 | 20.0 | +100% increase |
+| 4 | 0.25 | 25.0 | +150% increase |
+| 5 | 0.30 | 30.0 | +200% increase |
 
 ---
 
-*Data extracted from IL2CPP constructor at 0x180410890 and decompiled C# sources*
+*Data extracted from IL2CPP constructor at 0x18045BB70 and decompiled C# sources*

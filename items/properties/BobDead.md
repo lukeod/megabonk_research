@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.BobDead (46)
-- **Constructor Address**: 0x180401E10
+- **Constructor Address**: 0x18043AEC0
 - **Category**: Movement-triggered projectile spawner
 - **Rarity**: Unknown (requires additional data)
 
@@ -97,6 +97,6 @@ public override void Tick() {
 
 **Data Sources:**
 - `megabonk_research/items.md` - BobDead section
-- `extracted_constructors/items/BobDead.c` - Decompiled constructor at 0x180401E10
+- `extracted_constructors/items/BobDead.c` - Decompiled constructor at 0x18043AEC0
 - `decompiled/Assembly-CSharp/Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations/ItemBobDead.cs` - C# interface
 - `decompiled/Assembly-CSharp/Assets.Scripts.Menu.Shop/EStat.cs` - EStat enum definitions

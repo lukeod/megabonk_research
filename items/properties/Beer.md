@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Beer
-- **Constructor Address**: 0x180401080
+- **Constructor Address**: 0x180439EF0
 - **Category**: Damage/Power with Health Trade-off
 - **Rarity**: Common (inferred from simple stat trade-off mechanics)
 

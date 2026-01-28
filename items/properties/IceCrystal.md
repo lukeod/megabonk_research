@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.IceCrystal
-- **Constructor Address**: 0x180412060
+- **Constructor Address**: 0x18045D880
 - **Category**: Elemental/Status Effect
 - **Rarity**: Common
 

@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.QuinsMask (11)
-- **Constructor Address**: 0x180422B10
+- **Constructor Address**: 0x1804634B0
 - **Category**: Defensive/Retaliation
 - **Rarity**: Unknown
 
@@ -159,4 +159,4 @@ public override void Tick()
 
 ---
 
-*Data extracted from IL2CPP constructor at 0x180422B10 via IDA Pro MCP analysis*
+*Data extracted from IL2CPP constructor at 0x1804634B0 via IDA Pro MCP analysis*

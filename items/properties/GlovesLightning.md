@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: ItemGlovesLightning (from C# class name)
-- **Constructor Address**: 0x18040EC20
+- **Constructor Address**: 0x180459DA0
 - **Category**: Elemental/Status (Active Lightning Attack)
 - **Rarity**: Unknown
 
@@ -73,7 +73,7 @@ public override void ProcOnHitEffects(DamageContainer dc)
                 enemy.DamageFromPlayerOther(reuseDc);
 
                 // Apply lightning debuff
-                enemy.AddDebuff(8, reuseDc, 3.0f, true);
+                enemy.AddDebuff(8, reuseDc, 3.0f, 1);
             }
         }
 
@@ -103,4 +103,4 @@ public override void ProcOnHitEffects(DamageContainer dc)
 *Data extracted from:*
 - *megabonk_research/items.md (line 537-551)*
 - *decompiled/Assembly-CSharp/Assets.Scripts.Inventory__Items__Pickups.Items.ItemImplementations/ItemGlovesLightning.cs*
-- *extracted_constructors/items/GlovesLightning.c (constructor at 0x18040EC20, ProcOnHitEffects at 0x18040E640)*
+- *extracted_constructors/items/GlovesLightning.c (constructor at 0x180459DA0, ProcOnHitEffects at 0x1804597A0)*

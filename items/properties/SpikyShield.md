@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.SpikyShield
-- **Constructor Address**: 0x1804261A0
+- **Constructor Address**: 0x180467990
 - **Category**: Defensive
 - **Rarity**: Unknown
 
@@ -56,7 +56,7 @@ public class ItemSpikyShield : ItemBase
         {
             statType = EStat.Armor,
             modifierType = StatModifierType.Additive,
-            value = armorPerAmount
+            value = amount * armorPerAmount
         });
 
         nextUpdateTime = MyTime.time + 1.0f;
@@ -99,4 +99,4 @@ public class ItemSpikyShield : ItemBase
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x1804261A0 and C# interop wrapper*
+*Data extracted from decompiled IL2CPP constructor at 0x180467990 and C# interop wrapper*

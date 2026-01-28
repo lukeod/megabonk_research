@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.Wrench
-- **Constructor Address**: 0x180427620
+- **Constructor Address**: 0x180468FE0
 - **Category**: Utility/Equipment Enhancement
 - **Rarity**: Common (based on position in item list)
 
@@ -89,4 +89,4 @@ The Wrench's bonuses apply when:
 2. **Charge Rewards**: Multiplies the final reward value dispensed by the shrine
 
 ---
-*Data extracted from decompiled IL2CPP constructor at address 0x180427620*
+*Data extracted from decompiled IL2CPP constructor at address 0x180468FE0*

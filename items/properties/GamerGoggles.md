@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GamerGoggles
-- **Constructor Address**: 0x18040C330
+- **Constructor Address**: 0x1804570C0
 - **Category**: Damage/Power Enhancement
 - **Rarity**: Common/Uncommon (classification based on primary function)
 
@@ -17,7 +17,7 @@
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |
 |----------|-----------|---------------|--------------|
-| 12 | Power/Damage | `(0.5 - healthPercent) * 2 * maxDamagePerAmount * amount` when healthPercent < 0.5, otherwise 0 | Dynamic/Conditional |
+| 12 | Power/Damage | `(0.5 - healthPercent) * 2 * maxDamage` when healthPercent < 0.5, otherwise 0 | Dynamic/Conditional |
 
 ## Special Mechanics
 - **Health-Based Damage Scaling**: Provides damage bonus only when player health is below 50%
@@ -30,10 +30,12 @@
 ### Primary Damage Formula
 ```
 if (healthPercent < 0.5):
-    damageBonus = (0.5 - healthPercent) * 2 * maxDamagePerAmount * stackCount
+    damageBonus = (0.5 - healthPercent) * 2 * maxDamage
 else:
     damageBonus = 0
 ```
+
+Note: `maxDamage` is calculated in OnInitOrAmountChanged as `amount * maxDamagePerAmount`.
 
 ### Health Percentage Calculation
 ```
@@ -76,7 +78,7 @@ public void Tick()
         float damageBonus = 0.0f;
         if (healthPercent < 0.5f)
         {
-            damageBonus = (0.5f - healthPercent) * 2.0f * (maxDamagePerAmount * amount);
+            damageBonus = (0.5f - healthPercent) * 2.0f * maxDamage;
         }
 
         // Only update if change is significant enough
@@ -112,4 +114,4 @@ public void Tick()
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x18040C330 and Tick method at 0x18040C120*
+*Data extracted from decompiled IL2CPP constructor at 0x1804570C0 and Tick method at 0x180456EB0*

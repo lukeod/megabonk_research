@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: EItem.GrandmasSecretTonic (ID: 11)
-- **Constructor Address**: 0x180410F70
+- **Constructor Address**: 0x18045C6A0
 - **Category**: Area Damage/Critical Strike Enhancement
 - **Rarity**: Not determinable from code
 
@@ -100,4 +100,4 @@ public override void ProcOnHitEffects(DamageContainer dc) {
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at 0x180410F70 and C# implementation*
+*Data extracted from decompiled IL2CPP constructor at 0x18045C6A0 and C# implementation*

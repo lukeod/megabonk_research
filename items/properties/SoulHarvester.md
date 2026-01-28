@@ -2,7 +2,7 @@
 
 ## Overview
 - **Item ID**: 47 (EItem.SoulHarvester)
-- **Constructor Address**: 0x180424800
+- **Constructor Address**: 0x180465FF0
 - **Category**: Death-Triggered Projectile Item
 - **Rarity**: Unknown
 
@@ -11,8 +11,9 @@
 |----------|------|-------|-------|
 | damageSource | string | "SoulHarvester" | Damage source identifier (from enum toString) |
 | numProjectiles | int | 2 | Base number of projectiles spawned |
+| range | float | 50.0 | Projectile range |
 | damageMultiplier | float | amount | Set to current stack amount |
-| maxProjectiles | static int | Unknown | Static field, value not visible in constructor |
+| projectileLookup | Dictionary | capacity 100 | GameObject to ItemProjectile lookup |
 
 ## Stat Modifiers
 | EStat ID | Stat Name | Value/Formula | Scaling Type |
@@ -42,6 +43,8 @@
 public ItemSoulHarvester(ItemInventory itemInventoryRef) {
     damageSource = "SoulHarvester";  // EItem enum value 47 converted to string
     numProjectiles = 2;
+    range = 50.0f;
+    projectileLookup = new Dictionary<GameObject, ItemProjectile>(100);
     // Base constructor call
 }
 
@@ -79,7 +82,7 @@ private void SpawnProjectile(Vector3 pos) {
 - Properly manages event subscription/unsubscription to prevent memory leaks
 - IL2CPP decompiled code shows the item responds to the "EnemyReleasedFromPool" event, which appears to be triggered on enemy death
 - The actual projectile spawning and damage calculation logic is implemented in native code and not visible in the C# decompilation
-- Static `maxProjectiles` field suggests there may be a cap on projectile spawning, but the value is not set in the constructor
+- The `projectileLookup` dictionary is pre-allocated with capacity 100 for performance
 
 ## Related Items
 - **DemonicBlood**: Also gains stacks/power on enemy death
@@ -88,4 +91,4 @@ private void SpawnProjectile(Vector3 pos) {
 
 ---
 
-*Data extracted from decompiled IL2CPP constructor at address 0x180424800 and C# class definition*
+*Data extracted from decompiled IL2CPP constructor at address 0x180465FF0 and C# class definition*
