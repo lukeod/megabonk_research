@@ -35,17 +35,17 @@ chance = amount * 1.0 = amount (100% per stack)
 
 ### Gold Amount Calculation
 ```
-levelBonus = min(characterLevel * 0.2, 20.0)
+levelBonus = min((int)(characterLevel * 0.2), 20)
 goldOnHit = amount * (levelBonus + goldPerAmount)
-goldOnHit = amount * (min(level * 0.2, 20) + 6)
+goldOnHit = amount * (min((int)(level * 0.2), 20) + 6)
 ```
 
 ### Examples:
-- **Level 1, 1 stack**: 1 * (0.2 + 6) = 6.2 → 6 gold
-- **Level 10, 1 stack**: 1 * (2.0 + 6) = 8 gold
-- **Level 50, 1 stack**: 1 * (10.0 + 6) = 16 gold
-- **Level 100+, 1 stack**: 1 * (20.0 + 6) = 26 gold (capped)
-- **Level 100+, 5 stacks**: 5 * (20.0 + 6) = 130 gold
+- **Level 1, 1 stack**: 1 * ((int)(0.2) + 6) = 1 * (0 + 6) = 6 gold
+- **Level 10, 1 stack**: 1 * ((int)(2.0) + 6) = 1 * (2 + 6) = 8 gold
+- **Level 50, 1 stack**: 1 * ((int)(10.0) + 6) = 1 * (10 + 6) = 16 gold
+- **Level 100+, 1 stack**: 1 * (min(20, 20) + 6) = 1 * (20 + 6) = 26 gold (capped)
+- **Level 100+, 5 stacks**: 5 * (20 + 6) = 130 gold
 
 ## Implementation Details
 - **Update Frequency**: On damage taken (event-driven)
@@ -68,9 +68,10 @@ public class ItemGoldenShield : ItemBase
         // Calculate chance (100% per stack)
         chance = amount * chancePerAmount;
 
-        // Get character level and apply cap
+        // Get character level and apply cap (integer conversion happens before cap)
         int characterLevel = MyPlayer.Instance.inventory.GetCharacterLevel();
-        int levelBonus = Mathf.Min((int)(characterLevel * 0.2f), 20);
+        int levelBonus = (int)(characterLevel * 0.2f);
+        if (levelBonus > 20) levelBonus = 20;
 
         // Calculate final gold amount
         goldOnHit = amount * (levelBonus + goldPerAmount);

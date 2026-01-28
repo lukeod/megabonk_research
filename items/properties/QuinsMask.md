@@ -29,6 +29,7 @@ The mask only responds to specific damage sources:
 - Player thorns damage (from PlayerHealth.thornsDamageSource)
 - Cactus item damage (from ItemCactus.damageSource)
 - Aegis weapon damage (weapon ID 7 from DataManager)
+- Electric Plug item damage (from ItemElectricPlug.damageSource)
 
 ### Area Damage Spreading
 When triggered:
@@ -98,6 +99,7 @@ public ItemQuinsMask(ItemInventory itemInventoryRef) : base(itemInventoryRef)
     damageSources.Add(PlayerHealth.thornsDamageSource);
     damageSources.Add(ItemCactus.damageSource);
     damageSources.Add(DataManager.GetWeapon(7).damageSourceName); // Aegis
+    damageSources.Add(ItemElectricPlug.damageSource);
 }
 
 protected override void OnInitOrAmountChanged()
@@ -156,6 +158,7 @@ public override void Tick()
 - **SpikyShield**: Another thorns-based item, stacks multiplicatively
 - **Mirror**: Similar defensive retaliation concept
 - **Aegis Weapon**: One of the trigger sources for the spread effect
+- **ElectricPlug**: One of the trigger sources for the spread effect
 
 ---
 

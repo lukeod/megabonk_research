@@ -18,14 +18,14 @@
 | None | None | N/A | Direct damage modification |
 
 ## Special Mechanics
-- **High HP Target Bonus**: Provides damage bonus only against enemies with >90% health
-- **Conditional Damage**: Only applies bonus when enemy HP ratio > 0.9 (90%)
+- **High HP Target Bonus**: Provides damage bonus only against enemies with >=90% health
+- **Conditional Damage**: Only applies bonus when enemy HP ratio >= 0.9 (90%)
 - **PreAttack Hook**: Uses PreAttack method to conditionally modify damage
 - **Additive Damage**: Adds bonus damage directly to attack modifier rather than as a stat
 
 ## Formulas
 - **Damage Bonus**: `amount * 0.2` (20% per stack)
-- **HP Threshold**: Enemy HP must be > 90% for bonus to apply
+- **HP Threshold**: Enemy HP must be >= 90% for bonus to apply
 - **Total Bonus**: `damagePerAmount * amount` applied as additive damage
 
 ## Implementation Details
@@ -50,7 +50,7 @@ public override void PreAttack(DamageContainer dc, StatComponents itemAttackModi
     {
         float enemyHpRatio = dc.enemy.GetHpRatio();
 
-        // Only apply bonus if enemy has >90% health
+        // Only apply bonus if enemy has >=90% health
         if (enemyHpRatio >= 0.9f)
         {
             if (itemAttackModifier != null)

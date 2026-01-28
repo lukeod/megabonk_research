@@ -25,21 +25,21 @@
 ## Special Mechanics
 - **Poison Area Attack**: On hit proc, damages all enemies within `baseRadius` (15.0 units) of the hit target
 - **Poison Debuff**: Applies poison debuff (ID 1) for 5.0 seconds to all affected enemies
-- **Poison Stacking**: Each item stack applies `poisonStacksPerAmount * amount` poison stacks (10 per stack)
+- **Poison Stacking**: Applies `poisonStacksPerAmount` (10) poison stacks per activation (does not scale with item amount)
 - **Cooldown System**: Has an 8.5 second cooldown after activation, tracked via `readyAtTime`
 - **Visual Effects**: Spawns poison effect at target location when activated
 
 ## Formulas
 - **Damage Calculation**: `GetDamage() * baseDamageMultiplier` (1.5x multiplier)
 - **Area Radius**: Fixed at 15.0 units (no scaling)
-- **Poison Stacks**: `poisonStacksPerAmount * amount` (10 × item stack count)
+- **Poison Stacks**: `poisonStacksPerAmount` (fixed at 10 stacks per activation)
 - **Poison Duration**: Fixed at 5.0 seconds
 - **Cooldown Reset**: `MyTime.time + cooldown` (current time + 8.5 seconds)
 
 ## Implementation Details
 - **Update Frequency**: Checked on each hit via `ProcOnHitEffects`
 - **Event Subscriptions**: Responds to on-hit events from player attacks
-- **Stack Behavior**: Linear scaling - each additional item stack adds 10 more poison stacks
+- **Stack Behavior**: Poison stacks applied are fixed at 10 per activation (does not scale with item amount)
 - **Damage Source**: Uses static `damageSource` field for damage attribution
 - **Effect Management**: Instantiates and manages poison visual effects via EffectManager
 
@@ -85,7 +85,7 @@ public override void ProcOnHitEffects(DamageContainer dc)
                     1,                              // Poison debuff type
                     damageContainer,
                     5.0f,                           // Duration
-                    poisonStacksPerAmount,          // Stacks per item
+                    poisonStacksPerAmount,          // Fixed at 10 stacks
                     null);
             }
         }

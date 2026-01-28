@@ -1,7 +1,7 @@
 # Ghost
 
 ## Overview
-- **Item ID**: 33 (EItem.Ghost)
+- **Item ID**: 28 (EItem.Ghost)
 - **Constructor Address**: 0x180457DF0
 - **Category**: Utility/Special
 - **Rarity**: Unknown
